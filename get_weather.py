@@ -14,6 +14,11 @@ def get_weather_for_city(url,city_id,api_key):
         print(e)
     return result
 
+def parse_result(json_body):
+    parse_input = json.loads(json_body)
+    return parse_input['city']
+
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--cityid', default='london', help='The city to fetch the weather for', dest="city_id")
@@ -23,5 +28,6 @@ api_key = args.api_key
 city_id = args.city_id
 
 city_input = get_weather_for_city("http://api.openweathermap.org/data/2.5/forecast",city_id,api_key)
-print(city_input)
+parse_city = parse_result(city_input)
+print(parse_city)
 
